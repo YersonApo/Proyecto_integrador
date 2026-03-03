@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Formulario Planta</title>
+</head>
+<body>
+
+<h1>Formulario Planta</h1>
+
+<form th:action="@{/vista/guardar}" th:object="${planta}" method="post">
+
+  <input type="hidden" th:field="*{id}" />
+
+  <label>Nombre:</label>
+  <input type="text" th:field="*{nombre}" /><br>
+
+  <label>Descripción:</label>
+  <input type="text" th:field="*{descripcion}" /><br>
+
+  <label>Cuidados:</label>
+  <input type="text" th:field="*{cuidados}" /><br>
+
+  <label>Familia:</label>
+  <input type="text" th:field="*{familia}" /><br>
+
+  <button type="submit">Guardar</button>
+
+</form>
+
+<a th:href="@{/vista/plantas}">Volver</a>
+
+</body>
+</html>
