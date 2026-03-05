@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nueva Planta - SmartPlant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("https://www.jogamarplantaornamental.com/wp-content/uploads/2019/06/fondo-plantas-jogamar-1024x683.jpg?v=1751364563");
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .card-divisor {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      color: rgb(14, 9, 9);
+      border: 5px solid rgb(14, 9, 9);
+    }
+    .card-linea {
+      height: 2px;
+      width: 100%;
+      background-color: #0e0909;
+      margin: 15px 0;
+      opacity: 0.5;
+    }
+    .btn-pro {
+      background: linear-gradient(50deg, #00c853, #ffffff);
+      border: 2px solid #0e0909;
+      color: #0e0909;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+    .btn-pro:hover {
+      transform: translateY(-3px);
+    }
+    .custom-input {
+      border: 2px solid #0e0909;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card-divisor">
+        <div class="text-center">
+          <h1>REGISTRAR PLANTA</h1>
+          <img src="https://cdn-icons-png.flaticon.com/512/628/628283.png" style="max-width: 60px;" class="my-3">
+          <div class="card-linea"></div>
+        </div>
+
+        <form th:action="@{/vista/guardar}" th:object="${planta}" method="post" class="mt-4">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Nombre</label>
+              <input type="text" th:field="*{nombre}" class="form-control custom-input" placeholder="Ej: Helecho Real">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Familia</label>
+              <input type="text" th:field="*{familia}" class="form-control custom-input" placeholder="Ej: Polypodiaceae">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Descripción</label>
+            <input type="text" th:field="*{descripcion}" class="form-control custom-input" placeholder="Ej: Saludable">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-bold">Cuidados</label>
+            <input type="text" th:field="*{cuidados}" class="form-control custom-input" placeholder="Ej: Riego diario..." >
+          </div>
+
+          <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-pro w-100 py-2 text-uppercase">Guardar Planta</button>
+            <a th:href="@{/vista/inventario}" class="btn btn-light border-dark w-100 py-2 fw-bold text-uppercase">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

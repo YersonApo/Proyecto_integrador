@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario - SmartPlant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("https://www.jogamarplantaornamental.com/wp-content/uploads/2019/06/fondo-plantas-jogamar-1024x683.jpg?v=1751364563");
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .card-divisor {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 35px;
+      color: rgb(14, 9, 9);
+      text-align: center;
+      border: 5px solid rgb(14, 9, 9);
+      height: 100%;
+    }
+    .card-linea {
+      height: 2px;
+      width: 70%;
+      background-color: #0e0909;
+      margin: 10px auto;
+      opacity: 0.5;
+    }
+    .btn-pro {
+      background: linear-gradient(50deg, #00c853, #ffffff);
+      border: none;
+      color: #0e0909;
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .btn-pro:hover {
+      transform: translateY(-3px);
+      transition: 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-10">
+      <div class="card-divisor">
+        <h1>INVENTARIO DE PLANTAS</h1>
+        <div class="card-linea"></div>
+        <p>Gestión de existencias y estado del vivero</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card-divisor">
+        <h4>Nueva Planta</h4>
+        <img src="https://cdn-icons-png.flaticon.com/512/628/628283.png" class="img-fluid my-3" style="max-width: 70px;">
+        <div class="card-linea mb-3"></div>
+        <a th:href="@{/vista/inventario/nueva}" class="btn btn-pro rounded-3 w-100">Registrar</a>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card-divisor">
+        <h4>Ver Listado</h4>
+        <img src="https://cdn-icons-png.flaticon.com/512/1067/1067555.png" class="img-fluid my-3" style="max-width: 70px;">
+        <div class="card-linea mb-3"></div>
+        <a th:href="@{/vista/inventario/pc}" class="btn btn-pro rounded-3 w-100">Consultar</a>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card-divisor">
+        <h4>Actualizar</h4>
+        <img src="https://cdn-icons-png.flaticon.com/512/5024/5024467.png" class="img-fluid my-3" style="max-width: 70px;">
+        <div class="card-linea mb-3"></div>
+        <a th:href="@{/vista/inventario/actualizar}" class="btn btn-pro rounded-3 w-100">Modificar</a>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card-divisor">
+        <h4>Menú</h4>
+        <img src="https://cdn-icons-png.flaticon.com/512/2311/2311524.png" class="img-fluid my-3" style="max-width: 70px;">
+        <div class="card-linea mb-3"></div>
+        <a th:href="@{/vista/menu}" class="btn btn-pro rounded-3 w-100">Regresar</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

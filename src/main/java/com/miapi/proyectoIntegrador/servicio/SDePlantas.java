@@ -27,7 +27,9 @@ public class SDePlantas {
     public void actualizarPlanta(int id,Planta nuevainfo ) {
         Planta plantaExistente = repositorio.findById(id).orElseThrow(()->new RuntimeException("Planta no encontrada"));
         plantaExistente.setNombre(nuevainfo.getNombre());
+        plantaExistente.setFamilia(nuevainfo.getFamilia());
         plantaExistente.setDescripcion(nuevainfo.getDescripcion());
+        plantaExistente.setCuidados(nuevainfo.getCuidados());
         repositorio.save(plantaExistente);
     }
 

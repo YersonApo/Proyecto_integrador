@@ -19,27 +19,58 @@ public class webControladorPlantas {
         return "inicio";
     }
 
+    @GetMapping("/registro")
+    public String registro() {
+        return "ingreso/ingreso";
+    }
+
     @GetMapping("/menu")
-    public String menu() {
-        return "menu";
+    public String menuPrincipal() {
+        return "ingreso/menu";
     }
 
-    @GetMapping("/plantas")
-    public String listar(Model model) {
-        model.addAttribute("plantas", servicio.mostrarPlantas());
-        return "listarPlantas";
+    @GetMapping("/inventario")
+    public String menuInventario() {
+        return "inventario/menu2";
     }
 
-    @GetMapping("/nueva")
-    public String nueva(Model model) {
+    @GetMapping("/inventario/pc")
+    public String verPlantas(Model model) {
+        model.addAttribute("plantas",servicio.mostrarPlantas());
+        return "inventario/inventario";
+    }
+
+    @GetMapping("/inventario/nueva")
+    public String formularioRegistro(Model model) {
         model.addAttribute("planta", new Planta());
-        return "formularioPlanta";
+        return "inventario/registro";
+    }
+
+    @GetMapping("/inventario/actualizar")
+    public String gestionarInventario(Model model) {
+        model.addAttribute("plantas",servicio.mostrarPlantas());
+        return "inventario/modificar";
+    }
+
+    @GetMapping("/inventario/editar")
+    public String paginaEdicion() {
+        return "inventario/edicion";
+    }
+
+    @GetMapping("/sugerencias")
+    public String inicioSugerencias() {
+        return "su/sugerencias";
+    }
+
+    @GetMapping("/referencias")
+    public String inicioReferencias() {
+        return "re/referencias";
     }
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Planta planta) {
         servicio.guardarPlanta(planta);
-        return "redirect:/vista/plantas";
+        return "redirect:/vista/inventario/pc";
     }
 
     @GetMapping("/editar/{id}")
@@ -50,18 +81,19 @@ public class webControladorPlantas {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Planta no encontrada"));
         model.addAttribute("planta", planta);
-        return "formularioPlanta";
+        return "inventario/edicion";
     }
 
     @PostMapping("/actualizar/{id}")
     public String actualizar(@PathVariable int id, @ModelAttribute Planta planta) {
+        planta.setId(id);
         servicio.actualizarPlanta(id, planta);
-        return "redirect:/vista/plantas";
+        return "redirect:/vista/inventario/pc";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
         servicio.eliminarPlanta(id);
-        return "redirect:/vista/plantas";
+        return "redirect:/vista/inventario/pc";
     }
 }
