@@ -1,8 +1,12 @@
 package com.miapi.proyectoIntegrador.modelo;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 
 public class Planta {
 
@@ -13,6 +17,10 @@ public class Planta {
     private String descripcion;
     private String cuidados;
     private String familia;
+
+    @ManyToOne
+    @JoinColumn (name="usuario_id")
+    private Usuario usuario;
 
     public Planta() {
 
@@ -26,44 +34,4 @@ public class Planta {
         this.familia = familia;
     }
 
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getCuidados() {
-        return cuidados;
-    }
-
-    public void setCuidados(String cuidados) {
-        this.cuidados = cuidados;
-    }
-
-    public String getFamilia() {
-        return familia;
-    }
-
-    public void setFamilia(String familia) {
-        this.familia = familia;
-    }
 }

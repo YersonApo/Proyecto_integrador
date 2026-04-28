@@ -1,7 +1,9 @@
 package com.miapi.proyectoIntegrador.controlador;
 
 import com.miapi.proyectoIntegrador.modelo.Planta;
+import com.miapi.proyectoIntegrador.modelo.Usuario;
 import com.miapi.proyectoIntegrador.servicio.SDePlantas;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,24 +21,18 @@ public class webControladorPlantas {
         return "inicio";
     }
 
-    @GetMapping("/registro")
-    public String registro() {
-        return "ingreso/ingreso";
-    }
-
-    @GetMapping("/menu")
-    public String menuPrincipal() {
-        return "ingreso/menu";
-    }
-
     @GetMapping("/inventario")
     public String menuInventario() {
         return "inventario/menu2";
     }
 
     @GetMapping("/inventario/pc")
-    public String verPlantas(Model model) {
-        model.addAttribute("plantas",servicio.mostrarPlantas());
+    public String verPlantas(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+           throw new RuntimeException("Usuario no autenticado");
+        }
+        model.addAttribute("plantas",servicio.mostrarPlantas(usuario));
         return "inventario/inventario";
     }
 
@@ -47,8 +43,12 @@ public class webControladorPlantas {
     }
 
     @GetMapping("/inventario/actualizar")
-    public String gestionarInventario(Model model) {
-        model.addAttribute("plantas",servicio.mostrarPlantas());
+    public String gestionarInventario(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            throw new RuntimeException("Usuario no autenticado");
+        }
+        model.addAttribute("plantas",servicio.mostrarPlantas(usuario));
         return "inventario/modificar";
     }
 
@@ -57,25 +57,28 @@ public class webControladorPlantas {
         return "inventario/edicion";
     }
 
-    @GetMapping("/sugerencias")
-    public String inicioSugerencias() {
-        return "su/sugerencias";
-    }
-
     @GetMapping("/referencias")
     public String inicioReferencias() {
         return "re/referencias";
     }
 
     @PostMapping("/guardar")
-    public String guardar(@ModelAttribute Planta planta) {
-        servicio.guardarPlanta(planta);
+    public String guardar(@ModelAttribute Planta planta, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if(usuario == null){
+            throw new RuntimeException("Usuario no autenticado");
+        }
+        servicio.guardarPlanta(planta, usuario);
         return "redirect:/vista/inventario/pc";
     }
 
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable int id, Model model) {
-        Planta planta = servicio.mostrarPlantas()
+    public String editar(@PathVariable int id, Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if(usuario == null){
+            throw new RuntimeException("Usuario no autenticado");
+        }
+        Planta planta = servicio.mostrarPlantas(usuario)
                 .stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
@@ -85,15 +88,20 @@ public class webControladorPlantas {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizar(@PathVariable int id, @ModelAttribute Planta planta) {
+    public String actualizar(@PathVariable int id, @ModelAttribute Planta planta, HttpSession session) {
         planta.setId(id);
-        servicio.actualizarPlanta(id, planta);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if(usuario == null){
+            throw new RuntimeException("Usuario no autenticado");
+        }
+        servicio.actualizarPlanta(id, planta, usuario);
         return "redirect:/vista/inventario/pc";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable int id) {
-        servicio.eliminarPlanta(id);
+    public String eliminar(@PathVariable int id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        servicio.eliminarPlanta(id, usuario);
         return "redirect:/vista/inventario/pc";
     }
 }
