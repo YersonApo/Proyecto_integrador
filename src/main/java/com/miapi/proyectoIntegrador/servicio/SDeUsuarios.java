@@ -2,7 +2,6 @@ package com.miapi.proyectoIntegrador.servicio;
 
 import com.miapi.proyectoIntegrador.modelo.Usuario;
 import com.miapi.proyectoIntegrador.repositorio.RDeUsuarios;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

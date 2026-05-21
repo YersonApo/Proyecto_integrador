@@ -4,9 +4,11 @@ package com.miapi.proyectoIntegrador.controlador;
 import com.miapi.proyectoIntegrador.modelo.Usuario;
 import com.miapi.proyectoIntegrador.servicio.SDeUsuarios;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -27,10 +29,18 @@ public class webControladorUsuario {
     }
 
     @PostMapping("/registrar-nuevo")
-    public String registrar(@ModelAttribute Usuario usuario, HttpSession session, Model model) {
+    public String registrar(@Valid Usuario usuario,
+                            BindingResult result,
+                            HttpSession session,
+                            Model model) {
+
+        if (result.hasErrors()) {
+            return "ingreso/registroU";
+        }
+
         try {
             Usuario guardado = sDeUsuarios.registrarUsu(usuario);
-            session.setAttribute("usuarioLogueado", guardado); // Guarda la sesión tras registrar
+            session.setAttribute("usuarioLogueado", guardado);
             return "redirect:/menu";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());

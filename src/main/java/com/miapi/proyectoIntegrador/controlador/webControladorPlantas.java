@@ -57,11 +57,6 @@ public class webControladorPlantas {
         return "inventario/edicion";
     }
 
-    @GetMapping("/referencias")
-    public String inicioReferencias() {
-        return "re/referencias";
-    }
-
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Planta planta, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");

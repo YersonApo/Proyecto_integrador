@@ -67,9 +67,45 @@
             font-weight: bold;
         }
         .stat-label { color: #1b5e20; }
+
+        .btn-ayuda-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #00c853;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn-ayuda-flotante:hover {
+            transform: scale(1.1);
+            background: #1b5e20;
+            color: white;
+        }
+        .guia-item {
+            background: rgba(255,255,255,0.3);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+
+<button class="btn-ayuda-flotante" data-bs-toggle="modal" data-bs-target="#modalGuia">?</button>
+
 <div class="container py-5">
     <div class="row mb-5 justify-content-center">
         <div class="col-md-8">
@@ -118,7 +154,7 @@
                                         </div>
                                         <div class="stat-row">
                                             <span class="stat-label">TEMP</span>
-                                            <span th:text="${p.temperatura + '°C'}"></span>
+                                            <span th:text="${p.temperatura + '/5'}"></span>
                                         </div>
                                         <div class="stat-row">
                                             <span class="stat-label">CUIDADO</span>
@@ -137,6 +173,41 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalGuia" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header border-0">
+                <h3 class="modal-title fw-bold">Guía de Medidas (1-5)</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="guia-item">
+                    <h6 class="fw-bold">LUZ</h6>
+                    <p class="small m-0">1: Sombra total | 5: Pleno sol directo</p>
+                    <p class="small m-0 fst-italic">Ejemplo 3/5: Necesita sol directo ocasionalmente .</p>
+                </div>
+                <div class="guia-item">
+                    <h6 class="fw-bold">RIEGO</h6>
+                    <p class="small m-0">1: Mínimo (suelo seco) | 5: Abundante (diario)</p>
+                </div>
+                <div class="guia-item">
+                    <h6 class="fw-bold">TEMPERATURA</h6>
+                    <p class="small m-0">1: Climas muy fríos | 5: Climas tropicales/calurosos</p>
+                    <p class="small m-0 fst-italic">Ejemplo 2/5: Necesita calidez moderada.</p>
+                </div>
+                <div class="guia-item">
+                    <h6 class="fw-bold">CUIDADO</h6>
+                    <p class="small m-0">1: Muy resistente | 5: Requiere atención experta</p>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-pro w-100" data-bs-dismiss="modal">ENTENDIDO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

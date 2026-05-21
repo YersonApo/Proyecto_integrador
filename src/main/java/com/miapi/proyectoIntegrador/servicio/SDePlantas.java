@@ -4,7 +4,6 @@ package com.miapi.proyectoIntegrador.servicio;
 import com.miapi.proyectoIntegrador.modelo.Planta;
 import com.miapi.proyectoIntegrador.modelo.Usuario;
 import com.miapi.proyectoIntegrador.repositorio.RDePlantas;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +40,7 @@ public class SDePlantas {
         plantaExistente.setFamilia(nuevainfo.getFamilia());
         plantaExistente.setDescripcion(nuevainfo.getDescripcion());
         plantaExistente.setCuidados(nuevainfo.getCuidados());
+        plantaExistente.setImagenUrl(nuevainfo.getImagenUrl());
 
         return repositorio.save(plantaExistente);
     }

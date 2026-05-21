@@ -17,6 +17,8 @@ public class Planta {
     private String descripcion;
     private String cuidados;
     private String familia;
+    @Column(columnDefinition = "TEXT")
+    private String imagenUrl;
 
     @ManyToOne
     @JoinColumn (name="usuario_id")
@@ -26,12 +28,13 @@ public class Planta {
 
     }
 
-    public Planta(int id, String nombre, String descripcion, String cuidados, String familia) {
+    public Planta(int id, String nombre, String descripcion, String cuidados, String familia, String imagenUrl) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cuidados = cuidados;
         this.familia = familia;
+        this.imagenUrl = imagenUrl;
     }
 
 }

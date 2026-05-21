@@ -3,90 +3,135 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Menú Principal - SmartPlant</title>
+    <title>Registro - SmartPlant</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    body {
-        background-image: url("/img/fondo.jpg");
-        background-size: cover;
-        background-position: center center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        min-height: 100vh;
-        margin: 0;
-        background-color: #2e7d32;
-    }
-    .card-divisor{
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 30px;
-        color: rgb(14, 9, 9);
-        border: 5px solid rgb(14, 9, 9);
-    }
-    .card-linea {
-        height: 3px;
-        width: 100%;
-        background-color: #0e0909;
-        margin: 15px 0;
-        opacity: 0.5;
-    }
-    .btn-pro{
-        background: linear-gradient(50deg, #00c853, #ffffff);
-        border: 2px solid #0e0909;
-        color: #0e0909;
-        font-weight: bold;
-        text-decoration: none;
-        transition: 0.2s ease;
-    }
-    .btn-pro-hover{
-        transform: translateY(-3px);
-    }
-</style>
+
+    <style>
+        body {
+            background-image: url("/img/fondo.jpg");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #2e7d32;
+        }
+
+        .card-divisor {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            color: rgb(14, 9, 9);
+            border: 5px solid rgb(14, 9, 9);
+        }
+
+        .card-linea {
+            height: 3px;
+            width: 100%;
+            background-color: #0e0909;
+            margin: 15px 0;
+            opacity: 0.5;
+        }
+
+        .btn-pro {
+            background: linear-gradient(50deg, #00c853, #ffffff);
+            border: 2px solid #0e0909;
+            color: #0e0909;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .btn-pro:hover {
+            transform: translateY(-3px);
+        }
+
+        .custom-input {
+            border: 2px solid #0e0909;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
+
 <div class="container py-5">
-<div class="row justify-content-center">
-<div class="col-md-7">
-<div class="card-divisor">
-<div class="text-center">
-    <h1>Registro nuevos usuarios</h1>
-    <div class="card-linea"></div>
-    <p>Bienvenido a SmartPlant ingresa los siguientes datos para continuar</p>
-</div>
-</div>
 
+    <div class="row justify-content-center">
+        <div class="col-md-7">
 
+            <div class="card-divisor text-center">
 
+                <h1>Registro de usuarios</h1>
 
-    <div class="card-divisor mt-4">
-        <form th:action="@{/registrar-nuevo}" th:object="${usuario}" method="post">
-            <div class="row justify-content-center">
-                <div class="col-md-10"> <div class="mb-4">
-                    <label class="form-label fw-bold d-block text-start">Nombre de Usuario</label>
-                    <input type="text" th:field="*{nombre}" class="form-control custom-input"
-                           placeholder="Ej: Usuario1" required>
-                </div>
+                <div class="card-linea"></div>
+
+                <p>Bienvenido a SmartPlant, ingresa los datos para continuar</p>
+
+            </div>
+
+            <div class="card-divisor mt-4">
+
+                <form th:action="@{/registrar-nuevo}" th:object="${usuario}" method="post">
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold d-block text-start">Contraseña</label>
-                        <input type="password" th:field="*{contra}" class="form-control custom-input"
-                               placeholder="••••••••" required>
+
+                        <label class="form-label fw-bold d-block text-start">
+                            Nombre de Usuario
+                        </label>
+
+                        <input type="text"
+                               th:field="*{nombre}"
+                               class="form-control custom-input"
+                               placeholder="Ej: Usuario1"
+                               required>
+
+                        <div class="text-danger small mt-1"
+                             th:if="${#fields.hasErrors('nombre')}"
+                             th:errors="*{nombre}">
+                        </div>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold d-block text-start">
+                            Contraseña
+                        </label>
+
+                        <input type="password"
+                               th:field="*{contra}"
+                               class="form-control custom-input"
+                               placeholder="••••••••"
+                               required>
+
+                        <div class="text-danger small mt-1"
+                             th:if="${#fields.hasErrors('contra')}"
+                             th:errors="*{contra}">
+                        </div>
+
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <button type="submit" class="btn btn-pro btn-pro-hover px-5 py-2 shadow-sm">
+
+                        <button type="submit"
+                                class="btn btn-pro px-5 py-2 shadow-sm">
                             REGISTRAR AHORA
                         </button>
+
                     </div>
 
-                </div>
+                </form>
+
             </div>
-        </form>
+
+        </div>
     </div>
 
-</div>
-</div>
 </div>
 
 </body>

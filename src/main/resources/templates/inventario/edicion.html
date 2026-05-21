@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Editar Planta - SmartPlant</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     body {
       background-image: url("/img/fondo.jpg");
@@ -15,6 +16,7 @@
       margin: 0;
       background-color: #2e7d32;
     }
+
     .card-divisor {
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(15px);
@@ -23,6 +25,7 @@
       color: rgb(14, 9, 9);
       border: 5px solid rgb(14, 9, 9);
     }
+
     .card-linea {
       height: 2px;
       width: 100%;
@@ -30,6 +33,7 @@
       margin: 15px 0;
       opacity: 0.5;
     }
+
     .btn-pro {
       background: linear-gradient(50deg, #00c853, #ffffff);
       border: 2px solid #0e0909;
@@ -38,9 +42,11 @@
       text-decoration: none;
       transition: 0.2s ease;
     }
+
     .btn-pro:hover {
       transform: translateY(-3px);
     }
+
     .custom-input {
       border: 2px solid #0e0909;
       border-radius: 10px;
@@ -49,30 +55,48 @@
     }
   </style>
 </head>
+
 <body>
+
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-7">
+
       <div class="card-divisor">
+
         <div class="text-center">
+
           <h1 class="text-uppercase">Modificar Registro</h1>
-          <img src="https://cdn-icons-png.flaticon.com/512/2693/2693510.png" style="max-width: 60px;" class="my-3">
+
+          <img src="https://cdn-icons-png.flaticon.com/512/2693/2693510.png"
+               style="max-width: 60px;" class="my-3">
+
           <div class="card-linea"></div>
+
         </div>
 
-        <form th:action="@{/vista/actualizar/{id}(id=${planta.id})}" th:object="${planta}" method="post">
+        <div class="text-center mb-3">
+          <img th:src="${planta.imagenUrl != null ? planta.imagenUrl : 'https://cdn-icons-png.flaticon.com/512/628/628283.png'}"
+               style="max-width:120px; border-radius:10px;">
+        </div>
+
+        <form th:action="@{/vista/actualizar/{id}(id=${planta.id})}"
+              th:object="${planta}" method="post">
 
           <input type="hidden" th:field="*{id}">
 
           <div class="row">
+
             <div class="col-md-6 mb-3">
               <label class="fw-bold">Nombre</label>
               <input type="text" th:field="*{nombre}" class="form-control custom-input">
             </div>
+
             <div class="col-md-6 mb-3">
               <label class="fw-bold">Familia</label>
               <input type="text" th:field="*{familia}" class="form-control custom-input">
             </div>
+
           </div>
 
           <div class="mb-3">
@@ -80,19 +104,40 @@
             <textarea th:field="*{descripcion}" class="form-control custom-input" rows="2"></textarea>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-3">
             <label class="fw-bold">Cuidados</label>
             <textarea th:field="*{cuidados}" class="form-control custom-input" rows="2"></textarea>
           </div>
 
-          <div class="d-flex gap-3">
-            <button type="submit" class="btn btn-pro w-100 py-2 text-uppercase">Actualizar Datos</button>
-            <a th:href="@{/vista/inventario/actualizar}" class="btn btn-light border-dark w-100 py-2 fw-bold text-uppercase">Cancelar</a>
+          <div class="mb-4">
+            <label class="fw-bold">Imagen (URL)</label>
+            <input type="text"
+                   th:field="*{imagenUrl}"
+                   class="form-control custom-input"
+                   placeholder="https://...">
           </div>
+
+          <div class="d-flex gap-3">
+
+            <button type="submit"
+                    class="btn btn-pro w-100 py-2 text-uppercase">
+              Actualizar Datos
+            </button>
+
+            <a th:href="@{/vista/inventario/actualizar}"
+               class="btn btn-light border-dark w-100 py-2 fw-bold text-uppercase">
+              Cancelar
+            </a>
+
+          </div>
+
         </form>
+
       </div>
+
     </div>
   </div>
 </div>
+
 </body>
 </html>

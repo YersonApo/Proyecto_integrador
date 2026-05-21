@@ -10,47 +10,70 @@
             background-size: cover;
             background-position: center center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
             min-height: 100vh;
-            margin: 0;
             background-color: #2e7d32;
+            margin: 0;
         }
         .card-divisor {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 15px;
-            color: rgb(14, 9, 9);
+            border-radius: 20px;
+            padding: 20px;
+            color: #0e0909;
             text-align: center;
-            border: 3px solid rgb(14, 9, 9); /* Un poco más delgado para cuadros pequeños */
-            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
             cursor: pointer;
-            height: 100%;
         }
         .card-divisor:hover {
-            background: rgba(0, 200, 83, 0.2);
             transform: scale(1.05);
+            background: rgba(255,255,255,0.2);
         }
         .card-linea {
             height: 2px;
             width: 100%;
             background-color: #0e0909;
-            margin: 8px 0;
-            opacity: 0.3;
+            margin: 12px 0;
+            opacity: 0.2;
         }
         .btn-pro {
             background: linear-gradient(50deg, #00c853, #ffffff);
-            border: 2px solid #0e0909;
+            border: none;
             color: #0e0909;
             font-weight: bold;
-            text-decoration: none;
         }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: #0e0909;
+        }
+        .almanaque-img {
+            width: 100%;
+            border-radius: 15px;
+            border: 2px solid #00c853;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            height: 100%;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 8px 0;
+            font-weight: bold;
+        }
+        .stat-label { color: #1b5e20; }
     </style>
 </head>
 <body>
 <div class="container py-4">
-    <div class="row mb-4">
-        <div class="col-12">
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-10">
             <div class="card-divisor py-3">
                 <h2 class="m-0 text-uppercase fw-bold">Caja de Almacenamiento 1</h2>
             </div>
@@ -59,20 +82,60 @@
 
     <div class="row g-3">
         <div class="col-6 col-md-2" th:each="planta : ${plantas}">
-            <div class="card-divisor"
-                 th:title="'Familia: ' + ${planta.familia} + ' | Descripción: ' + ${planta.descripcion} + ' | Cuidados: ' + ${planta.cuidados}">
+            <div class="card-divisor h-100" data-bs-toggle="modal" th:data-bs-target="'#m' + ${planta.id}">
+                <img th:src="${planta.imagenUrl != null ? planta.imagenUrl : 'https://cdn-icons-png.flaticon.com/512/628/628283.png'}"
+                     style="max-width: 45px;">                <div class="card-linea"></div>
+                <p class="mb-0 small fw-bold text-uppercase" th:text="${planta.nombre}">NOMBRE</p>
+            </div>
 
-                <img src="https://cdn-icons-png.flaticon.com/512/628/628283.png" style="max-width: 45px;">
-                <div class="card-linea"></div>
-                <p class="mb-1 small fw-bold text-uppercase" th:text="${planta.nombre}">NOMBRE</p>
+            <div class="modal fade" th:id="'m' + ${planta.id}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content shadow-lg">
+                        <div class="modal-header border-0">
+                            <h2 class="modal-title fw-bold text-uppercase" th:text="${planta.nombre}"></h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-4">
+                                <div class="col-md-5 text-center">
+                                    <img th:src="${planta.imagenUrl != null ? planta.imagenUrl : 'https://cdn-icons-png.flaticon.com/512/628/628283.png'}"
+                                         class="almanaque-img p-4 bg-white bg-opacity-25 shadow">
+                                    <div class="mt-3 p-3 bg-white bg-opacity-25 rounded-3">
+                                        <span class="fw-bold">FAMILIA</span><br>
+                                        <span th:text="${planta.familia}">Familia</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="info-box shadow-sm text-start">
+                                        <p class="fw-bold text-success small mb-1">DESCRIPCIÓN</p>
+                                        <p class="fst-italic" th:text="${planta.descripcion}"></p>
+                                        <hr>
+                                        <div class="stat-row">
+                                            <span class="stat-label text-uppercase">Cuidados Especiales</span>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p th:text="${planta.cuidados}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-pro px-5" data-bs-dismiss="modal">CERRAR</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="row">
         <div class="col-12 mt-5 text-center">
             <a th:href="@{/vista/inventario}" class="btn btn-pro px-5">SALIR DEL PC</a>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

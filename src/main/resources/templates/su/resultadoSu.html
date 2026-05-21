@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado - SmartPlant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("/img/fondo.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      background-color: #2e7d32;
+    }
+    .card-divisor {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      color: #0e0909;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .card-linea {
+      height: 2px;
+      width: 50%;
+      background-color: #0e0909;
+      margin: 15px auto;
+    }
+    .planta-img {
+      width: 100%;
+      max-width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 5px solid rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .nombre-planta {
+      color: #1b5e20;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .btn-pro {
+      background: linear-gradient(50deg, #00c853, #ffffff);
+      border: none;
+      color: #0e0909;
+      font-weight: bold;
+      padding: 12px 30px;
+    }
+    .btn-pro:hover {
+      transform: translateY(-3px);
+      transition: 0.2s ease;
+    }
+    .badge-custom {
+      background-color: rgba(0, 200, 83, 0.2);
+      color: #0e0909;
+      border: 1px solid #00c853;
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card-divisor">
+        <span class="badge-custom">RECOMENDACIÓN IDEAL</span>
+        <h1 class="display-5 fw-bold nombre-planta" th:text="${planta.nombre}">Nombre de la Planta</h1>
+        <div class="card-linea"></div>
+
+        <div class="my-4">
+          <img th:src="${planta.imagen}" class="planta-img" alt="Imagen de la planta">
+        </div>
+
+        <div class="text-start mb-4">
+          <h5 class="fw-bold">Descripción:</h5>
+          <p class="lead" style="font-size: 1.1rem; line-height: 1.6;" th:text="${planta.descripcion}">
+            Aquí se mostrará la descripción detallada de por qué esta planta es la mejor para tu hogar.
+          </p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-6">
+            <a th:href="@{/vista/sugerencias}" class="btn btn-outline-dark w-100 rounded-pill">Reintentar</a>
+          </div>
+          <div class="col-6">
+            <a th:href="@{/menu}" class="btn btn-pro w-100 rounded-pill">Volver al Menú</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
