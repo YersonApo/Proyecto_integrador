@@ -16,13 +16,4 @@ public class SDeCatalogo {
     public List<Catalogo> verCatalogo() {
         return repositorio.findAll();
     }
-
-    public Catalogo VerPlantaId(int id) {
-        return repositorio.findById(id).orElseThrow(() -> new RuntimeException("Planta no encontrada"));
-    }
-
-    public Catalogo VerPlantaNombre(String nombre){
-        return repositorio.findByNombre(nombre);
-    }
-
 }
