@@ -56,7 +56,7 @@ public class webControladorUsuario {
             return "redirect:/menu";
         }catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
-            return "/ingreso/ingreso";
+            return "ingreso/ingreso";
         }
     }
 
